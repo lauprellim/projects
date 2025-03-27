@@ -18,8 +18,6 @@ serial = usb_cdc.data
 numPixels = 16
 pixels = neopixel.NeoPixel(board.A1,numPixels, brightness=0.5, auto_write=False)
 
-# serial.reset_input_buffer()
-
 while True:
 
     # read the secondary serial line by line when there's data
@@ -37,9 +35,7 @@ while True:
         # print(str(values))
 
         COLOR = (r, g, b)
-        
         pixels[address] = COLOR
-            
         pixels.show()
 
    
