@@ -1,1 +1,1 @@
-Various projects in circuitpython for microcontrollers.
+Various projects using Arduino IDE, CircuitPython, and/or Max/MSP.
