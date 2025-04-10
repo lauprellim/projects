@@ -10,9 +10,32 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 394.0, 180.0, 877.0, 1042.0 ],
+		"rect" : [ 110.0, 160.0, 877.0, 1042.0 ],
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 435.0, 266.0, 51.0, 22.0 ],
+					"text" : "print vel"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "int", "int" ],
+					"patching_rect" : [ 123.0, 163.0, 48.0, 22.0 ],
+					"text" : "change"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-57",
 					"maxclass" : "newobj",
@@ -93,7 +116,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "int" ],
 					"patching_rect" : [ 405.5, 554.333334445953369, 41.0, 22.0 ],
-					"text" : "uzi 16"
+					"text" : "uzi 90"
 				}
 
 			}
@@ -152,8 +175,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 179.833333333333314, 673.0, 81.0, 22.0 ],
-					"text" : "1 27 160 57"
+					"patching_rect" : [ 152.0, 673.0, 109.0, 22.0 ],
+					"text" : "3 235 233 136"
 				}
 
 			}
@@ -165,7 +188,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 31.0, 631.0, 139.0, 22.0 ],
-					"text" : "join 2 @triggers 0"
+					"text" : "join 2 @triggers 1"
 				}
 
 			}
@@ -200,7 +223,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 329.0, 159.0, 46.0, 22.0 ],
+					"patching_rect" : [ 329.0, 163.0, 46.0, 22.0 ],
 					"text" : "route 0"
 				}
 
@@ -239,7 +262,7 @@
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 203.5, 596.0, 199.0, 48.0 ],
-					"saturation" : 182
+					"saturation" : 179
 				}
 
 			}
@@ -297,7 +320,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 123.0, 175.0, 105.0, 22.0 ],
+					"patching_rect" : [ 123.0, 194.0, 105.0, 22.0 ],
 					"text" : "zmap 48 72 0 255"
 				}
 
@@ -322,7 +345,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 173.0, 519.0, 91.0, 22.0 ],
-					"text" : "0 27 98 160"
+					"text" : "0 235 233 136"
 				}
 
 			}
@@ -516,26 +539,25 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-51",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 142.0, 754.0, 81.0, 49.0 ],
-					"text" : "49 32 50 55 32 49 54 48 32 53 55 10"
+					"patching_rect" : [ 142.0, 754.0, 81.0, 62.0 ],
+					"text" : "51 32 50 51 53 32 50 51 51 32 49 51 54 10"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"id" : "obj-49",
-					"linecount" : 48,
+					"linecount" : 59,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 549.333349704742432, 246.833334445953369, 548.0, 663.0 ],
-					"presentation_linecount" : 48,
-					"text" : "\"\"\"\nThis needs to go in boot.py on the Raspberry Pi Pico:\n\nimport usb_cdc\nusb_cdc.enable(console=True, data=True)\n\nThis repo can be useful:\nhttps://github.com/Neradoc/circuitpython-sample-scripts/blob/main/usb_serial/README.md\n\n\"\"\"\n\nimport board\nimport time\nimport usb_cdc\nimport neopixel\n\nserial = usb_cdc.data\nnumPixels = 90\npixels = neopixel.NeoPixel(board.A1,numPixels, brightness=0.5, auto_write=False)\n\n# pixelArray = [[0 for x in range(numPixels)] for y in range(3)]\npixelArray = [[0 for  x in range(3)] for y in range(numPixels)]\n\nwhile True:\n\n    # read the secondary serial line by line when there's data\n    # note that this assumes that the host always sends a full line\n    if serial.in_waiting > 0:\n        data_in = serial.readline()\n        \n        print(data_in)\n        values = data_in.split()\n        # address = int(values[0])\n        r = int(values[1])\n        g = int(values[2])\n        b = int(values[3])\n        \n        COLOR = (r, g, b)\n                \n        pixelArray.insert( 0, COLOR )\n        print(\"-----\")\n        print(pixelArray)\n        print(\"-----\")\n        \n        for i in range(numPixels):\n           pixels[i] = pixelArray[i]\n        \n        pixels.show()\n"
+					"patching_rect" : [ 549.333349704742432, 246.833334445953369, 548.0, 811.0 ],
+					"text" : "\"\"\"\nThis needs to go in boot.py on the Raspberry Pi Pico:\n\nimport usb_cdc\nusb_cdc.enable(console=True, data=True)\n\nThis repo can be useful:\nhttps://github.com/Neradoc/circuitpython-sample-scripts/blob/main/usb_serial/README.md\n\n\"\"\"\n\nimport board\nimport time\nimport usb_cdc\nimport neopixel\n\nserial = usb_cdc.data\nnumPixels = 90\npixels = neopixel.NeoPixel(board.A1,numPixels, brightness=0.5, auto_write=False)\n\npixelArray = [[0 for  x in range(3)] for y in range(numPixels)]\n\ndef movePixels(numPixels):\n    for i in range(numPixels):\n        pixelArray[numPixels-i-1][0] = pixelArray[numPixels-i-2][0]\n        pixelArray[numPixels-i-1][1] = pixelArray[numPixels-i-2][1]\n        pixelArray[numPixels-i-1][2] = pixelArray[numPixels-i-2][2]\n\nwhile True:\n\n    # read the secondary serial line by line when there's data\n    # note that this assumes that the host always sends a full line\n    if serial.in_waiting > 0:\n        data_in = serial.readline()\n        \n        print(data_in)\n        values = data_in.split()\n        r = int(values[1])\n        g = int(values[2])\n        b = int(values[3])\n        \n        # COLOR = (r, g, b)\n        \n        # move the second-to-last pixel to the last, and so on...\n        movePixels(numPixels)\n        # add the new value to the beginning of the strip\n        pixelArray[0][0] = r\n        pixelArray[0][1] = g\n        pixelArray[0][2] = b\n        \n        # debugging purposes\n        # print(\"-----\")\n        # print(pixelArray)\n        # print(\"-----\")\n        \n        for i in range(numPixels):\n           pixels[i] = pixelArray[i]\n        \n        pixels.show()\n"
 				}
 
 			}
@@ -570,7 +592,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "list" ],
-					"patching_rect" : [ 31.0, 673.0, 40.0, 22.0 ],
+					"patching_rect" : [ 31.0, 680.0, 40.0, 22.0 ],
 					"text" : "atoi"
 				}
 
@@ -587,6 +609,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-82", 0 ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
@@ -840,8 +869,25 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-48", 0 ],
+					"destination" : [ "obj-13", 0 ],
+					"order" : 0,
 					"source" : [ "obj-89", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 0 ],
+					"order" : 1,
+					"source" : [ "obj-89", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"order" : 1,
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
@@ -850,14 +896,6 @@
 					"destination" : [ "obj-7", 0 ],
 					"order" : 1,
 					"source" : [ "obj-9", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-82", 0 ],
-					"order" : 1,
-					"source" : [ "obj-9", 0 ]
 				}
 
 			}
@@ -878,7 +916,7 @@
 
 			}
  ],
-		"originid" : "pat-52",
+		"originid" : "pat-4",
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}

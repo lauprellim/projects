@@ -39,7 +39,7 @@ while True:
         g = int(values[2])
         b = int(values[3])
         
-        COLOR = (r, g, b)
+        # COLOR = (r, g, b)
         
         # move the second-to-last pixel to the last, and so on...
         movePixels(numPixels)
@@ -48,9 +48,10 @@ while True:
         pixelArray[0][1] = g
         pixelArray[0][2] = b
         
-        print("-----")
-        print(pixelArray)
-        print("-----")
+        # debugging purposes
+        # print("-----")
+        # print(pixelArray)
+        # print("-----")
         
         for i in range(numPixels):
            pixels[i] = pixelArray[i]
