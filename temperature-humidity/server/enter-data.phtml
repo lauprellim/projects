@@ -1,0 +1,38 @@
+<?php
+
+// Get database password and local password
+include '/home/lauprellim/connect_mysql/connect-temphumid.inc';
+
+// Set mySQL database and table
+$db_name = "climate";
+$db_table = "climatedata_duq";
+
+// Connect to database
+$mysqli = new mysqli($db_host, $db_username, $db_password, $db_name);
+if ($mysqli->connect_error) {
+	die("Connection failed: " . $mysqli->connect_error);
+}
+
+$sid = $mysqli->real_escape_string($_POST['id']);
+
+if ($_GET[duqPassword] == $duq_password) {
+
+	/* INSERT query */	
+	$result = $mysqli->query("INSERT INTO $db_table ( temp, humidity, idLocations ) VALUES ( '$_GET[temp]', '$_GET[humidity]', $_GET[idLocations] ) " );
+
+	// Uncomment this for debugging purposes
+	/*
+	if ($result === true) {	echo "Success entering data.<br>\n"; }
+	else { echo "SQL error:" . $mysqli->error; }
+
+	echo "Temp = ".$_GET['temp']." and humidity = ".$_GET['humidity'].".";
+	*/
+
+} else {
+	echo "Wrong password!\n";
+}
+
+// Close the connection.
+$mysqli->close();
+
+?>

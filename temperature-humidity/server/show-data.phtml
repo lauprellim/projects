@@ -1,0 +1,35 @@
+<html>
+<head></head>
+<body>
+<h1>Temp and Humidity Data</h1>
+Location: Duquesne (all locations) 
+<br>
+Last 100 entries
+<br><br>
+
+<?php
+include '/home/lauprellim/connect_mysql/connect-temphumid1.inc';
+$result = mysqli_query($con,"SELECT * FROM climatedata_duq order by id DESC LIMIT 100");
+$data = $result->fetch_all(MYSQLI_ASSOC);
+?>
+
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Timestamp</th>
+	<th>Temp</th>
+	<th>Humidity</th>
+	<th>idLocations</th>
+  </tr>
+  <?php foreach($data as $row): ?>
+  <tr>
+	<td><?= htmlspecialchars($row['id']) ?></td>
+	<td><?= htmlspecialchars($row['timestamp']) ?></td>
+	<td><?= htmlspecialchars($row['temp']) ?></td>
+	<td><?= htmlspecialchars($row['humidity']) ?></td>
+	<td><?= htmlspecialchars($row['idLocations']) ?></td> 
+ </tr>
+  <?php endforeach ?>
+</table>
+</body>
+</html>
