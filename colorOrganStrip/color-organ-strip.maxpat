@@ -4,22 +4,36 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 0,
+			"revision" : 3,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 708.0, 261.0, 1234.0, 1042.0 ],
+		"rect" : [ 172.0, 87.0, 1234.0, 732.0 ],
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
+				"box" : 				{
+					"bubble" : 1,
+					"bubbleside" : 2,
+					"id" : "obj-13",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 423.0, 311.0, 150.0, 52.0 ],
+					"text" : "The \"stop\" button on the keyboard clears the strip."
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-22",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 611.0, 171.0, 81.0, 22.0 ],
+					"patching_rect" : [ 708.0, 171.0, 81.0, 22.0 ],
 					"text" : "loadmess -90"
 				}
 
@@ -35,7 +49,7 @@
 					"orientation" : 1,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 759.0, 196.0, 136.0, 41.0 ],
+					"patching_rect" : [ 631.0, 208.0, 136.0, 41.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_longname" : "live.gain~",
@@ -60,7 +74,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 759.0, 268.0, 45.0, 45.0 ]
+					"patching_rect" : [ 631.0, 280.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -76,7 +90,7 @@
 						"appversion" : 						{
 							"major" : 9,
 							"minor" : 0,
-							"revision" : 0,
+							"revision" : 3,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -460,7 +474,7 @@
 										"appversion" : 										{
 											"major" : 9,
 											"minor" : 0,
-											"revision" : 0,
+											"revision" : 3,
 											"architecture" : "x64",
 											"modernui" : 1
 										}
@@ -819,7 +833,7 @@
 
 											}
  ],
-										"originid" : "pat-60"
+										"originid" : "pat-8"
 									}
 ,
 									"patching_rect" : [ 613.0, 182.0, 295.0, 22.0 ],
@@ -1393,10 +1407,10 @@
 
 							}
  ],
-						"originid" : "pat-58"
+						"originid" : "pat-6"
 					}
 ,
-					"patching_rect" : [ 759.0, 159.0, 69.0, 22.0 ],
+					"patching_rect" : [ 631.0, 171.0, 69.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"globalpatchername" : ""
 					}
@@ -1436,7 +1450,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"patching_rect" : [ 474.0, 479.0, 34.0, 22.0 ],
+					"patching_rect" : [ 472.0, 422.0, 34.0, 22.0 ],
 					"text" : "sel 1"
 				}
 
@@ -1448,7 +1462,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 474.0, 450.0, 46.0, 22.0 ],
+					"patching_rect" : [ 472.0, 393.0, 46.0, 22.0 ],
 					"text" : "== 127"
 				}
 
@@ -1460,7 +1474,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "int" ],
-					"patching_rect" : [ 474.0, 422.0, 52.0, 22.0 ],
+					"patching_rect" : [ 472.0, 365.0, 52.0, 22.0 ],
 					"text" : "ctlin 114"
 				}
 
@@ -1473,7 +1487,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 510.0, 512.0, 90.666669368743896, 37.0 ],
+					"patching_rect" : [ 507.0, 451.0, 90.666669368743896, 37.0 ],
 					"text" : "Turn all the pixels off"
 				}
 
@@ -1485,7 +1499,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 497.0, 604.0, 29.5, 22.0 ],
+					"patching_rect" : [ 494.0, 523.0, 29.5, 22.0 ],
 					"text" : "- 1"
 				}
 
@@ -1497,7 +1511,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 495.0, 649.0, 70.0, 22.0 ],
+					"patching_rect" : [ 493.0, 555.0, 70.0, 22.0 ],
 					"text" : "pack i 0 0 0"
 				}
 
@@ -1509,7 +1523,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "int" ],
-					"patching_rect" : [ 474.0, 556.0, 41.0, 22.0 ],
+					"patching_rect" : [ 472.0, 488.0, 41.0, 22.0 ],
 					"text" : "uzi 90"
 				}
 
@@ -1522,18 +1536,19 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 474.0, 519.0, 24.0, 24.0 ]
+					"patching_rect" : [ 472.0, 457.0, 24.0, 24.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"bubble" : 1,
+					"bubbleside" : 2,
 					"id" : "obj-10",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 297.0, 755.0, 218.0, 24.0 ],
+					"patching_rect" : [ 268.0, 642.0, 218.0, 39.0 ],
 					"text" : "ASCII info to send out the serial port"
 				}
 
@@ -1545,7 +1560,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 336.0, 674.0, 128.0, 24.0 ],
+					"patching_rect" : [ 332.0, 597.0, 128.0, 24.0 ],
 					"text" : "counter + RGB info"
 				}
 
@@ -1557,7 +1572,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 331.0, 520.0, 82.0, 24.0 ],
+					"patching_rect" : [ 330.5, 503.0, 82.0, 24.0 ],
 					"text" : "ARGB info"
 				}
 
@@ -1569,7 +1584,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 221.0, 675.0, 109.0, 22.0 ],
+					"patching_rect" : [ 221.0, 598.0, 109.0, 22.0 ],
 					"text" : "11 100 23 132"
 				}
 
@@ -1581,7 +1596,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 100.0, 633.0, 139.0, 22.0 ],
+					"patching_rect" : [ 101.0, 570.0, 139.0, 22.0 ],
 					"text" : "join 2 @triggers 1"
 				}
 
@@ -1594,7 +1609,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 100.0, 594.0, 50.0, 22.0 ]
+					"patching_rect" : [ 100.0, 539.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1605,7 +1620,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "", "", "int" ],
-					"patching_rect" : [ 100.0, 240.0, 65.0, 22.0 ],
+					"patching_rect" : [ 100.0, 233.0, 65.0, 22.0 ],
 					"text" : "counter 15"
 				}
 
@@ -1641,7 +1656,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 245.0, 421.0, 136.0, 24.0 ],
+					"patching_rect" : [ 246.0, 400.0, 136.0, 24.0 ],
 					"text" : "Convert HSL to RGB"
 				}
 
@@ -1655,7 +1670,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 272.0, 598.0, 199.0, 48.0 ],
+					"patching_rect" : [ 254.0, 539.0, 199.0, 48.0 ],
 					"saturation" : 180
 				}
 
@@ -1663,12 +1678,12 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-3",
-					"linecount" : 4,
+					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 425.0, 89.0, 317.0, 60.0 ],
-					"text" : "Make a ring of 16 Neopixels light up, one pixel at a time, based on the MIDI pitch and velocity information set through an external keyboard such as the Novation Launchkey 25."
+					"patching_rect" : [ 631.0, 15.0, 317.0, 74.0 ],
+					"text" : "Make a strip of 90 Neopixels light up, pushing a new pixel onto the strip each time a new MIDI note is received.  The color corresponds to the MIDI pitch and velocity information set through an external keyboard such as the Novation Launchkey 25."
 				}
 
 			}
@@ -1703,7 +1718,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 184.0, 560.0, 55.0, 22.0 ],
+					"patching_rect" : [ 185.0, 535.0, 55.0, 22.0 ],
 					"text" : "zl.slice 1"
 				}
 
@@ -1715,7 +1730,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 242.0, 521.0, 91.0, 22.0 ],
+					"patching_rect" : [ 230.0, 504.0, 91.0, 22.0 ],
 					"text" : "0 100 23 132"
 				}
 
@@ -1727,7 +1742,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 184.0, 521.0, 40.0, 22.0 ],
+					"patching_rect" : [ 185.0, 504.0, 40.0, 22.0 ],
 					"text" : "jit.iter"
 				}
 
@@ -1751,7 +1766,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 184.0, 386.0, 143.0, 22.0 ],
+					"patching_rect" : [ 184.0, 371.0, 143.0, 22.0 ],
 					"text" : "jit.matrix name 4 char 1 1"
 				}
 
@@ -1775,7 +1790,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 184.0, 453.0, 80.0, 60.0 ],
+					"patching_rect" : [ 185.0, 435.0, 80.0, 60.0 ],
 					"sync" : 1
 				}
 
@@ -1787,7 +1802,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 331.0, 385.0, 92.0, 24.0 ],
+					"patching_rect" : [ 331.0, 370.0, 92.0, 24.0 ],
 					"text" : "AHSL Matrix"
 				}
 
@@ -1834,26 +1849,12 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-34",
-					"maxclass" : "number",
-					"maximum" : 255,
-					"minimum" : 0,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 184.0, 233.0, 50.0, 22.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-32",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 184.0, 422.0, 60.0, 22.0 ],
+					"patching_rect" : [ 185.0, 401.0, 60.0, 22.0 ],
 					"text" : "jit.hsl2rgb"
 				}
 
@@ -1864,7 +1865,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 100.0, 98.0, 85.0, 20.0 ],
+					"patching_rect" : [ 100.0, 89.0, 85.0, 20.0 ],
 					"text" : "range is 36-83"
 				}
 
@@ -1903,7 +1904,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 172.0, 714.0, 32.0, 22.0 ],
+					"patching_rect" : [ 173.0, 642.0, 32.0, 22.0 ],
 					"text" : "print"
 				}
 
@@ -1911,12 +1912,11 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-51",
-					"linecount" : 4,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 211.0, 756.0, 81.0, 62.0 ],
+					"patching_rect" : [ 221.0, 677.5, 292.0, 22.0 ],
 					"text" : "49 49 32 49 48 48 32 50 51 32 49 51 50 10"
 				}
 
@@ -1940,7 +1940,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "" ],
-					"patching_rect" : [ 100.0, 756.0, 77.0, 22.0 ],
+					"patching_rect" : [ 101.0, 684.0, 77.0, 22.0 ],
 					"text" : "serial c 9600"
 				}
 
@@ -1952,7 +1952,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 100.0, 714.0, 65.0, 22.0 ],
+					"patching_rect" : [ 101.0, 642.0, 65.0, 22.0 ],
 					"text" : "append 10"
 				}
 
@@ -1964,7 +1964,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "list" ],
-					"patching_rect" : [ 100.0, 682.0, 40.0, 22.0 ],
+					"patching_rect" : [ 101.0, 610.0, 40.0, 22.0 ],
 					"text" : "atoi"
 				}
 
@@ -2067,13 +2067,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-58", 0 ],
 					"source" : [ "obj-32", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
-					"source" : [ "obj-34", 0 ]
 				}
 
 			}
