@@ -21,7 +21,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 423.0, 311.0, 150.0, 52.0 ],
+					"patching_rect" : [ 449.0, 288.0, 150.0, 52.0 ],
 					"text" : "The \"stop\" button on the keyboard clears the strip."
 				}
 
@@ -96,7 +96,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 1238.0, 382.0, 1000.0, 780.0 ],
+						"rect" : [ 406.0, 87.0, 1000.0, 732.0 ],
 						"gridsize" : [ 15.0, 15.0 ],
 						"boxes" : [ 							{
 								"box" : 								{
@@ -1450,7 +1450,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"patching_rect" : [ 472.0, 422.0, 34.0, 22.0 ],
+					"patching_rect" : [ 498.0, 391.0, 34.0, 22.0 ],
 					"text" : "sel 1"
 				}
 
@@ -1462,7 +1462,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 472.0, 393.0, 46.0, 22.0 ],
+					"patching_rect" : [ 498.0, 362.0, 46.0, 22.0 ],
 					"text" : "== 127"
 				}
 
@@ -1474,7 +1474,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "int" ],
-					"patching_rect" : [ 472.0, 365.0, 52.0, 22.0 ],
+					"patching_rect" : [ 498.0, 334.0, 52.0, 22.0 ],
 					"text" : "ctlin 114"
 				}
 
@@ -1487,7 +1487,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 507.0, 451.0, 90.666669368743896, 37.0 ],
+					"patching_rect" : [ 533.0, 420.0, 90.666669368743896, 37.0 ],
 					"text" : "Turn all the pixels off"
 				}
 
@@ -1499,7 +1499,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 494.0, 523.0, 29.5, 22.0 ],
+					"patching_rect" : [ 520.0, 492.0, 29.5, 22.0 ],
 					"text" : "- 1"
 				}
 
@@ -1511,7 +1511,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 493.0, 555.0, 70.0, 22.0 ],
+					"patching_rect" : [ 519.0, 524.0, 70.0, 22.0 ],
 					"text" : "pack i 0 0 0"
 				}
 
@@ -1523,7 +1523,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "int" ],
-					"patching_rect" : [ 472.0, 488.0, 41.0, 22.0 ],
+					"patching_rect" : [ 498.0, 457.0, 41.0, 22.0 ],
 					"text" : "uzi 90"
 				}
 
@@ -1536,7 +1536,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 472.0, 457.0, 24.0, 24.0 ]
+					"patching_rect" : [ 498.0, 426.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -1548,7 +1548,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 268.0, 642.0, 218.0, 39.0 ],
+					"patching_rect" : [ 268.0, 617.0, 218.0, 39.0 ],
 					"text" : "ASCII info to send out the serial port"
 				}
 
@@ -1560,7 +1560,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 332.0, 597.0, 128.0, 24.0 ],
+					"patching_rect" : [ 332.0, 572.0, 128.0, 24.0 ],
 					"text" : "counter + RGB info"
 				}
 
@@ -1572,7 +1572,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 330.5, 503.0, 82.0, 24.0 ],
+					"patching_rect" : [ 330.0, 478.0, 82.0, 24.0 ],
 					"text" : "ARGB info"
 				}
 
@@ -1584,7 +1584,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 221.0, 598.0, 109.0, 22.0 ],
+					"patching_rect" : [ 221.0, 573.0, 109.0, 22.0 ],
 					"text" : "11 100 23 132"
 				}
 
@@ -1596,7 +1596,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 101.0, 570.0, 139.0, 22.0 ],
+					"patching_rect" : [ 101.0, 545.0, 139.0, 22.0 ],
 					"text" : "join 2 @triggers 1"
 				}
 
@@ -1609,7 +1609,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 100.0, 539.0, 50.0, 22.0 ]
+					"patching_rect" : [ 100.0, 514.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1670,7 +1670,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 254.0, 539.0, 199.0, 48.0 ],
+					"patching_rect" : [ 254.0, 514.0, 199.0, 48.0 ],
 					"saturation" : 180
 				}
 
@@ -1682,7 +1682,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 631.0, 15.0, 317.0, 74.0 ],
+					"patching_rect" : [ 631.0, 15.0, 318.0, 74.0 ],
 					"text" : "Make a strip of 90 Neopixels light up, pushing a new pixel onto the strip each time a new MIDI note is received.  The color corresponds to the MIDI pitch and velocity information set through an external keyboard such as the Novation Launchkey 25."
 				}
 
@@ -1718,7 +1718,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 185.0, 535.0, 55.0, 22.0 ],
+					"patching_rect" : [ 185.0, 510.0, 55.0, 22.0 ],
 					"text" : "zl.slice 1"
 				}
 
@@ -1730,7 +1730,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 230.0, 504.0, 91.0, 22.0 ],
+					"patching_rect" : [ 230.0, 479.0, 91.0, 22.0 ],
 					"text" : "0 100 23 132"
 				}
 
@@ -1742,7 +1742,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 185.0, 504.0, 40.0, 22.0 ],
+					"patching_rect" : [ 185.0, 479.0, 40.0, 22.0 ],
 					"text" : "jit.iter"
 				}
 
@@ -1790,7 +1790,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 185.0, 435.0, 80.0, 60.0 ],
+					"patching_rect" : [ 185.0, 435.0, 49.0, 36.0 ],
 					"sync" : 1
 				}
 
@@ -1904,7 +1904,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 173.0, 642.0, 32.0, 22.0 ],
+					"patching_rect" : [ 173.0, 617.0, 32.0, 22.0 ],
 					"text" : "print"
 				}
 
@@ -1916,7 +1916,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 221.0, 677.5, 292.0, 22.0 ],
+					"patching_rect" : [ 221.0, 653.0, 292.0, 22.0 ],
 					"text" : "49 49 32 49 48 48 32 50 51 32 49 51 50 10"
 				}
 
@@ -1940,7 +1940,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "" ],
-					"patching_rect" : [ 101.0, 684.0, 77.0, 22.0 ],
+					"patching_rect" : [ 101.0, 653.0, 77.0, 22.0 ],
 					"text" : "serial c 9600"
 				}
 
@@ -1952,7 +1952,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 101.0, 642.0, 65.0, 22.0 ],
+					"patching_rect" : [ 101.0, 617.0, 65.0, 22.0 ],
 					"text" : "append 10"
 				}
 
@@ -1964,7 +1964,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "list" ],
-					"patching_rect" : [ 101.0, 610.0, 40.0, 22.0 ],
+					"patching_rect" : [ 101.0, 585.0, 40.0, 22.0 ],
 					"text" : "atoi"
 				}
 
