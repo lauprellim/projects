@@ -10,9 +10,33 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 91.0, 87.0, 1119.0, 732.0 ],
+		"rect" : [ 121.0, 87.0, 1119.0, 732.0 ],
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-28",
+					"linecount" : 115,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 235.0, 569.0, 464.0, 1548.0 ],
+					"text" : "/* photoresistors organ\noutput formatted for Max/MSP patch\nThis is the program for MTML 2024, updated May 2025 by Paul V. Miller\n\nUse \"calibration\" code to calibrate the 5 analog inputs while button is depressed.\nwhile button is depressed, you enter calibration mode\n*/\n\nint photoPin1 = A0;\nint photoPin2 = A1;\nint photoPin3 = A2;\nint photoPin4 = A3;\nint photoPin5 = A4;\n\nconst int buttonPin = 2;  // button connected to digital pin 2\nconst int ledPin = 13;    // this is the built-in LED\n\nint buttonState = 0;\n\nint photoPin1Min = 1023;\nint photoPin1Max = 0;\nint photoPin2Min = 1023;\nint photoPin2Max = 0;\nint photoPin3Min = 1023;\nint photoPin3Max = 0;\nint photoPin4Min = 1023;\nint photoPin4Max = 0;\nint photoPin5Min = 1023;\nint photoPin5Max = 0;\n\nvoid setup() {\n  Serial.begin(9600);\n  pinMode(buttonPin, INPUT);\n  pinMode(ledPin, OUTPUT);\n\n  // attachInterrupt(digitalPinToInterrupt (buttonPin), calibratePhotoresistors, RISING);\n\n}\n\nvoid loop() {\n\n  int light1 = analogRead(photoPin1);\n  int light2 = analogRead(photoPin2);\n  int light3 = analogRead(photoPin3);\n  int light4 = analogRead(photoPin4);\n  int light5 = analogRead(photoPin5);\n\n  buttonState = digitalRead(buttonPin);\n\n  if (buttonState == HIGH) {\n    digitalWrite(ledPin, HIGH); // turn LED on\n    // calibrate!\n    if (light1 > photoPin1Max) {\n      photoPin1Max = light1;\n    }\n    if (light1 < photoPin1Min) {\n      photoPin1Min = light1;\n    }\n    if (light2 > photoPin2Max) {\n      photoPin2Max = light2;\n    }\n    if (light2 < photoPin2Min) {\n      photoPin2Min = light2;\n    }\n    if (light3 > photoPin3Max) {\n      photoPin3Max = light3;\n    }\n    if (light3 < photoPin3Min) {\n      photoPin3Min = light3;\n    }\n    if (light4 > photoPin4Max) {\n      photoPin4Max = light4;\n    }\n    if (light4 < photoPin4Min) {\n      photoPin4Min = light4;\n    }\n    if (light5 > photoPin5Max) {\n      photoPin5Max = light5;\n    }\n    if (light5 < photoPin5Min) {\n      photoPin5Min = light5;\n    }\n\n  } else {\n    digitalWrite(ledPin, LOW);  // turn LED off\n  }\n\n  light1 = constrain(light1, photoPin1Min, photoPin1Max);\n  light1 = map(light1, photoPin1Min, photoPin1Max, 0, 255);\n\n  light2 = constrain(light2, photoPin2Min, photoPin2Max);\n  light2 = map(light2, photoPin2Min, photoPin2Max, 0, 255);\n\n  light3 = constrain(light3, photoPin3Min, photoPin3Max);\n  light3 = map(light3, photoPin3Min, photoPin3Max, 0, 255);\n\n  light4 = constrain(light4, photoPin4Min, photoPin4Max);\n  light4 = map(light4, photoPin4Min, photoPin4Max, 0, 255);\n\n  light5 = constrain(light5, photoPin5Min, photoPin5Max);\n  light5 = map(light5, photoPin5Min, photoPin5Max, 0, 255);\n\n  Serial.print(light1);\n  Serial.print(\" \");\n  Serial.print(light2);\n  Serial.print(\" \");\n  Serial.print(light3);\n  Serial.print(\" \");\n  Serial.print(light4);\n  Serial.print(\" \");\n  Serial.print(light5);\n  Serial.println();\n\n  delay(50);\n}"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-23",
+					"linecount" : 5,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 207.0, 79.0, 290.0, 74.0 ],
+					"text" : "This takes input from five photoresistors to change the amplitude of five oscillators tuned nearly to the harmonic overtone series. The ramp time, or speed of change in amplitude, can be controlled by the \"glide\" dial."
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"bubble" : 1,
 					"bubbleside" : 3,
@@ -600,7 +624,7 @@
 
 							}
  ],
-						"originid" : "pat-6"
+						"originid" : "pat-14"
 					}
 ,
 					"patching_rect" : [ 732.0, 406.0, 93.0, 22.0 ],
@@ -810,7 +834,7 @@
 
 							}
  ],
-						"originid" : "pat-8"
+						"originid" : "pat-16"
 					}
 ,
 					"patching_rect" : [ 566.0, 411.0, 93.0, 22.0 ],
@@ -1006,7 +1030,7 @@
 
 							}
  ],
-						"originid" : "pat-10"
+						"originid" : "pat-18"
 					}
 ,
 					"patching_rect" : [ 401.0, 411.0, 93.0, 22.0 ],
@@ -1202,7 +1226,7 @@
 
 							}
  ],
-						"originid" : "pat-12"
+						"originid" : "pat-20"
 					}
 ,
 					"patching_rect" : [ 235.0, 411.0, 93.0, 22.0 ],
@@ -1441,7 +1465,7 @@
 
 							}
  ],
-						"originid" : "pat-14"
+						"originid" : "pat-22"
 					}
 ,
 					"patching_rect" : [ 69.0, 411.0, 93.0, 22.0 ],
@@ -2023,7 +2047,7 @@
 
 			}
  ],
-		"originid" : "pat-4",
+		"originid" : "pat-12",
 		"parameters" : 		{
 			"obj-51" : [ "mc.live.gain~", "mc.live.gain~", 0 ],
 			"parameterbanks" : 			{
