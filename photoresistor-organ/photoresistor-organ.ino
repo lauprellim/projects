@@ -1,6 +1,6 @@
-/* photoresistors on breadboard
-output formatted for Max
-This is the program for MTML 2024.
+/* photoresistors organ
+output formatted for Max/MSP patch
+This is the program for MTML 2024, updated May 2025 by Paul V. Miller
 
 Use "calibration" code to calibrate the 5 analog inputs while button is depressed.
 while button is depressed, you enter calibration mode
