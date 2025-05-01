@@ -32,8 +32,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 755.0, 326.0, 91.0, 22.0 ],
-					"text" : "expr pow($i1\\,2)"
+					"patching_rect" : [ 744.0, 327.5, 101.0, 22.0 ],
+					"text" : "expr pow($i1\\,1.5)"
 				}
 
 			}
@@ -46,7 +46,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 755.0, 252.5, 61.0, 61.0 ],
+					"patching_rect" : [ 744.0, 252.5, 61.0, 61.0 ],
 					"size" : 91.0
 				}
 
@@ -434,7 +434,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 905.0, 420.0, 640.0, 480.0 ],
+						"rect" : [ 766.0, 339.0, 640.0, 480.0 ],
 						"gridsize" : [ 15.0, 15.0 ],
 						"boxes" : [ 							{
 								"box" : 								{
@@ -484,8 +484,8 @@
 									"numinlets" : 6,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 328.0, 191.0, 110.0, 22.0 ],
-									"text" : "scale~ 0. 255. 1. 0."
+									"patching_rect" : [ 328.0, 191.0, 130.0, 22.0 ],
+									"text" : "scale~ 0. 255. 1. 0. 0.5"
 								}
 
 							}
@@ -644,7 +644,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 905.0, 420.0, 640.0, 480.0 ],
+						"rect" : [ 766.0, 339.0, 640.0, 480.0 ],
 						"gridsize" : [ 15.0, 15.0 ],
 						"boxes" : [ 							{
 								"box" : 								{
@@ -694,8 +694,8 @@
 									"numinlets" : 6,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 328.0, 191.0, 110.0, 22.0 ],
-									"text" : "scale~ 0. 255. 1. 0."
+									"patching_rect" : [ 328.0, 191.0, 130.0, 22.0 ],
+									"text" : "scale~ 0. 255. 1. 0. 0.5"
 								}
 
 							}
@@ -890,8 +890,8 @@
 									"numinlets" : 6,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 328.0, 191.0, 110.0, 22.0 ],
-									"text" : "scale~ 0. 255. 1. 0."
+									"patching_rect" : [ 328.0, 191.0, 130.0, 22.0 ],
+									"text" : "scale~ 0. 255. 1. 0. 0.5"
 								}
 
 							}
@@ -1036,7 +1036,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 905.0, 420.0, 640.0, 480.0 ],
+						"rect" : [ 766.0, 339.0, 640.0, 480.0 ],
 						"gridsize" : [ 15.0, 15.0 ],
 						"boxes" : [ 							{
 								"box" : 								{
@@ -1086,8 +1086,8 @@
 									"numinlets" : 6,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 328.0, 191.0, 117.0, 22.0 ],
-									"text" : "scale~ 10. 255. 1. 0."
+									"patching_rect" : [ 328.0, 191.0, 137.0, 22.0 ],
+									"text" : "scale~ 10. 255. 1. 0. 0.5"
 								}
 
 							}
@@ -1232,7 +1232,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 875.0, 544.0, 640.0, 480.0 ],
+						"rect" : [ 485.0, 296.0, 640.0, 480.0 ],
 						"gridsize" : [ 15.0, 15.0 ],
 						"boxes" : [ 							{
 								"box" : 								{
@@ -1310,8 +1310,8 @@
 									"numinlets" : 6,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 328.0, 191.0, 110.0, 22.0 ],
-									"text" : "scale~ 0. 255. 1. 0."
+									"patching_rect" : [ 328.0, 191.0, 130.0, 22.0 ],
+									"text" : "scale~ 0. 255. 1. 0. 0.5"
 								}
 
 							}
@@ -1513,7 +1513,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 149.0, 336.0, 137.0, 22.0 ],
-					"text" : "155 170 255 204 139"
+					"text" : "35 89 99 72 95"
 				}
 
 			}
@@ -1573,7 +1573,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 87.0, 198.0, 98.0, 22.0 ],
-					"text" : "read 42"
+					"text" : "read 32"
 				}
 
 			}
@@ -1625,11 +1625,11 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "" ],
-					"patching_rect" : [ 69.0, 166.0, 116.0, 22.0 ],
+					"patching_rect" : [ 69.0, 166.0, 117.0, 22.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 542.884180633668848, 225.925000071525574, 61.0, 49.0 ],
-					"text" : "serial c 9600 @dtr 1"
+					"text" : "serial d 9600 @dtr 1"
 				}
 
 			}
