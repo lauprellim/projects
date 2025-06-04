@@ -1,5 +1,6 @@
 # Written by Paul V. Miller
 # Media Maker's Lab 2025 Project
+# Be sure to set the "idLocations" variable in line 32 (formattedURL = ...)
 
 import os
 import time
@@ -13,12 +14,6 @@ import board
 import busio
 import adafruit_sht4x
 
-#  connect to SSID
-wifi.radio.connect(os.getenv('CIRCUITPY_WIFI_SSID'), os.getenv('CIRCUITPY_WIFI_PASSWORD'))
-
-pool = socketpool.SocketPool(wifi.radio)
-requests = adafruit_requests.Session(pool, ssl.create_default_context())
-
 i2c = busio.I2C(scl=board.GP1, sda=board.GP0)
 sht = adafruit_sht4x.SHT4x(i2c)
 
@@ -30,15 +25,14 @@ while True:
 
     pool = socketpool.SocketPool(wifi.radio)
     requests = adafruit_requests.Session(pool, ssl.create_default_context())
-    
+
     temp, hum = sht.measurements
     URLtemp = "%3.1f" %temp
     URLhum = "%3.1f" %hum
     formattedURL = "http://www.theoryofpaul.net/temphumid-duq/enter-data.phtml?temp=" + str(URLtemp) + "&humidity=" + str(URLhum) + "&idLocations=1&duqPassword=duQuesne1878!"
-        
+
     response = requests.get(formattedURL)
     response.close()
 
     # 60 times 15 = 900 seconds
     time.sleep(900)
- 
