@@ -43,7 +43,7 @@ while True:
             "http://www.theoryofpaul.net/temphumid-duq/enter-data.phtml?"
             f"temp={URLtemp}&humidity={URLhum}&idLocations=1&duqPassword=duQuesne1878!"
         )
-        print(f"Sending data: Temp={URLtemp}°C, Humidity={URLhum}%")
+        # print(f"Sending data: Temp={URLtemp}°C, Humidity={URLhum}%")
 
         # Send GET request
         response = requests.get(formattedURL)
