@@ -18,13 +18,10 @@ import adafruit_sht4x
 i2c = busio.I2C(scl=board.GP1, sda=board.GP0)
 sht = adafruit_sht4x.SHT4x(i2c)
 sht.mode = adafruit_sht4x.Mode.NOHEAT_HIGHPRECISION
-# Let the sensor settle
-time.sleep(1)
+time.sleep(1)  # Let the sensor settle
 
 # Connect to WiFi
-# print("Connecting to WiFi...")
 wifi.radio.connect(os.getenv('CIRCUITPY_WIFI_SSID'), os.getenv('CIRCUITPY_WIFI_PASSWORD'))
-# print("Connected to WiFi.")
 
 # Prepare request session
 pool = socketpool.SocketPool(wifi.radio)
@@ -35,25 +32,35 @@ while True:
     try:
         # Read sensor data
         temp, hum = sht.measurements
-        URLtemp = "%3.1f" %temp
-        URLhum = "%3.1f" %hum
+        URLtemp = "%3.1f" % temp
+        URLhum = "%3.1f" % hum
 
         # Construct request URL
         formattedURL = (
             "http://www.theoryofpaul.net/temphumid-duq/enter-data.phtml?"
-            f"temp={URLtemp}&humidity={URLhum}&idLocations=1&duqPassword=duQuesne1878!"
+            f"temp={URLtemp}&humidity={URLhum}&idLocations=3&duqPassword=duQuesne1878!"
         )
-        # print(f"Sending data: Temp={URLtemp}°C, Humidity={URLhum}%")
 
-        # Send GET request
-        response = requests.get(formattedURL)
-        response.close()
-        # print("Data sent successfully.")
+        # Try up to 3 times to send data
+        maxRetries = 3
+        for attempt in range(maxRetries):
+            try:
+                response = requests.get(formattedURL)
+                response.close()
+                # print("Data sent successfully.")
+                break  # Success, exit retry loop
+            except Exception as e:
+                # print(f"Attempt {attempt + 1} failed: {e}")
+                time.sleep(10)
+        else:
+            # All retries failed — reset the board
+            # print("All attempts failed. Resetting...")
+            microcontroller.reset()
 
-    except Exception as e:
-        # print("Error occurred:", e)
-        # Reset device if request failed
-        microcontroller.reset()
+    except Exception as outer_exception:
+        # Sensor read or unexpected failure
+        # print(f"Sensor or setup error: {outer_exception}")
+        time.sleep(30)
 
     # Wait 15 minutes before next reading
     time.sleep(900)
