@@ -7,7 +7,7 @@ import time
 import ssl
 import wifi
 import socketpool
-# import machine # microcontroller not available in circuitpython?
+# import machine # microcontroller is not available in circuitpython?
 # then in place of microcontroller.reset(), use machine.reset()
 import microcontroller
 import adafruit_requests
