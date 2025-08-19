@@ -1,5 +1,0 @@
-import struct
-
-value = struct.pack(">f", 42.0)
-
-print(value)
