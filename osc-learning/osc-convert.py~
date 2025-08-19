@@ -1,0 +1,20 @@
+'''
+How floating-point numbers get converted into OSCbinary format.
+Run with python3.
+'''
+
+import struct
+
+def float_to_osc_bytes(value: float) -> bytes:
+    # convert a float to 4-byte OSC representation (big-endian IEEE 754).
+    return struct.pack(">f", value)
+
+def hex(b: bytes) -> str:
+    # return human-readable hex string for bytes
+    return " ".join(f"{x:02X}" for x in b)
+
+# test values
+test_values = [0.0, 1.0, -1.0, 3.14159, 42.0, 1000.0]
+
+for val in test_values:
+    osc_bytes = 
