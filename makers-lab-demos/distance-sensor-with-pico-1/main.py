@@ -20,16 +20,17 @@ import time
 from machine import Pin, ADC
 
 # === WiFi Setup ===
-SSID = "YOUR_WIFI_SSID"
-PASSWORD = "YOUR_WIFI_PASSWORD"
-UDP_IP = "192.168.1.100"   # IP of computer running PD
-UDP_PORT = 8000            # Port PD is listening on
+
+SSID = "NETGEAR75"
+PASSWORD = "modernmoon901"
+UDP_IP = "192.168.1.2"   # IP address of computer running Pure Data
+UDP_PORT = 9000            # UDP port PD is listening on
 
 # === Hardware Setup ===
 trigger = Pin(17, Pin.OUT)
 echo = Pin(16, Pin.IN)
 button = Pin(14, Pin.IN, Pin.PULL_UP)
-pot = ADC(26)  # Potentiometer connected to GP26 (ADC0)
+pot = ADC(26)  # Potentiometer connected to GPIO26 (ADC0)
 
 # === OSC Helper Functions ===
 def pad_osc_string(s: str) -> bytes:
@@ -59,8 +60,8 @@ print("Connected:", wlan.ifconfig())
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-# === Modes ===
-modes = ["/distance/freq", "/distance/filter1", "/distance/filter2"]
+# === set your modes here ===
+modes = ["/off", "/freq", "/filter1", "/filter2"]
 current_mode = 0
 last_button_time = 0
 debounce_delay = 0.3
