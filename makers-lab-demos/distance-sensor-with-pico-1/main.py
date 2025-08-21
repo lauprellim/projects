@@ -3,7 +3,14 @@ Micropython program for Raspberry Pi Pico W
 - Reads distance from HC-SR04
 - Uses a button to cycle through students' OSC modes
 - Reads a potentiometer for volume control
-- Sends data over UDP to pd
+- Sends data over UDP to Pd
+
+Use a 10 or 100 kohm linear potentiometer. Remember to wire 3.3V -> outer lug,
+ground to other outer lug, and wiper goes to Pico ADC (ADC 26 in this case).
+You can wire a small RC filter on the wiper for steader readings, but
+that's not necessary. If you want add a 0.1uF capacitor from wiper to ground.
+
+Don't send 5V to the wiper because the pico's ADC is only 3.3V.
 """
 
 import network
