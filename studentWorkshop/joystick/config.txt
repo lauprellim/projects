@@ -1,3 +1,5 @@
+# This goes in /boot/firmware to enable the uda1334 DAC on a Raspberry Pi Zero 2W.
+
 # For more options and information see
 # http://rptl.io/configtxt
 # Some settings may impact device functionality. See link above for details
