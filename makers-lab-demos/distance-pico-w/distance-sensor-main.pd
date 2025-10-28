@@ -35,7 +35,7 @@
 #X obj 180 400 vs.line~;
 #X msg 182 373 \$1 200;
 #X obj 428 381 vs.scale 0.19 1 0 1;
-#X text 53 432 distance in cm;
+#X text 69 433 distance in cm;
 #X text 297 424 amplitude scaling;
 #X text 231 303 patch this in to view incoming OSC messages;
 #X text 124 652 final gain scaling;
@@ -67,8 +67,9 @@
 #X connect 8 0 2 0;
 #X connect 8 0 4 0;
 #X restore 353 502 pd Abdul;
-#X text 40 489 drop students' patches here as subpatches, f 16;
 #X text 21 7 distance-sensor-main.pd || Paul V. Miller \, 2025 || Duquesne University This patch listens for OSC messages over a local WiFi network \, and parses them so they can be used in the patch. Each transmitter sends a boxID code \, so multiple devices can be used simultaneously in an ensemble performance. We use objects in the virtual sound library which can be found at: https://virtual-sound.com/pure-data-electronic-music-and-sound-design-volume-1-support/ The corresponding Python script that runs on the Raspberry Pi Zero W can be downloaded from: https://github.com/lauprellim/projects/tree/main/makers-lab-demos/distance-pico-w, f 114;
+#X text 55 401 smooth the data;
+#X text 34 496 drop students' work here as subpatches:, f 19;
 #X connect 0 0 1 0;
 #X connect 1 0 3 0;
 #X connect 2 0 0 0;
