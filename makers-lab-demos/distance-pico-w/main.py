@@ -1,8 +1,9 @@
 """
 Micropython program for Raspberry Pi Pico W
-- Reads distance from HC-SR04
-- Sends distance (cm), pot value, button press, and device ID over UDP to Pd
-- Pd handles all mode switching logic
+  Reads distance from HC-SR04
+  Sends distance (cm), pot value, button press, and device ID over UDP to Pd
+  The data is sent as OSC
+  Pd handles all mode switching logic
 """
 
 import network
@@ -11,22 +12,22 @@ import struct
 import time
 from machine import Pin, ADC
 
-# === WiFi Setup ===
+# WiFi setup
 SSID = "NETGEAR75"
 PASSWORD = "modernmoon901"
 UDP_IP = "192.168.1.2"   # IP address of computer running Pure Data
 UDP_PORT = 9000          # UDP port PD is listening on
 
-# === Device Identifier ===
-BOX_ID = 10  # Unique identifier for this device (change per unit)
+# device identifier for this unit
+BOX_ID = 20
 
-# === Hardware Setup ===
+# hardware setup
 trigger = Pin(17, Pin.OUT)
 echo = Pin(16, Pin.IN)
 button = Pin(14, Pin.IN, Pin.PULL_UP)
 pot = ADC(26)
 
-# === OSC Helper Functions ===
+# OSC helper funcs
 def pad_osc_string(s: str) -> bytes:
     b = s.encode("utf-8") + b"\x00"
     while len(b) % 4 != 0:
@@ -43,7 +44,7 @@ def build_osc_message(address: str, types: str, args: list) -> bytes:
             msg += struct.pack(">i", arg)
     return msg
 
-# === Networking ===
+# networking
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(SSID, PASSWORD)
@@ -54,12 +55,12 @@ print("Connected:", wlan.ifconfig())
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-# === Button State Tracking ===
+# track state of the button for debouncing
 last_button_state = 1
 last_button_time = 0
 debounce_delay = 0.3
 
-# === Functions ===
+# main functions
 def read_distance():
     trigger.low()
     time.sleep_us(2)
@@ -82,12 +83,12 @@ def read_volume():
     raw = pot.read_u16()
     return raw / 65535.0  # scale 0–1
 
-# === Main Loop ===
+# main loop
 while True:
     dist = read_distance()
     vol = read_volume()
 
-    # Send device identifier once per loop (or could send every N loops)
+    # Send device identifier once per loop (or could send every N loops...)
     msg_id = build_osc_message("/boxID", "i", [BOX_ID])
     sock.sendto(msg_id, (UDP_IP, UDP_PORT))
 
