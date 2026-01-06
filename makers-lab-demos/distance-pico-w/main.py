@@ -6,7 +6,7 @@ Micropython program for Raspberry Pi Pico W
   Pd handles all mode switching logic
 
 OLED (128x32 I2C, SSD1306 / Adafruit #4440):
-  Line 0: ID:<boxID> WF:<OK/down>
+  Line 0: ID:<boxID> WiFi:<OK/down>
   Line 1: (blank)
   Line 2: <distance> cm
   Line 3: B:<0/1> V:<0.00>
