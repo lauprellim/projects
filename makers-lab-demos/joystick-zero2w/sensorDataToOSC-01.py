@@ -59,12 +59,12 @@ def read_button():
     return None
 
 # ------------------------
-# I2C + SSD1306 OLED (128x64)
+# I2C + SSD1306 OLED (128x32)
 # ------------------------
 # Typical SSD1306 I2C address is 0x3C. Adjust if your board uses 0x3D.
 i2c = busio.I2C(board.SCL, board.SDA)
 oled_width = 128
-oled_height = 64
+oled_height = 32 
 oled = adafruit_ssd1306.SSD1306_I2C(oled_width, oled_height, i2c, addr=0x3C)
 
 oled.fill(0)
@@ -85,7 +85,7 @@ osc = SimpleUDPClient(PD_IP, PD_PORT)
 LISTEN_PORT = 9000
 student_name = None
 name_lock = threading.Lock()
-name_display_time = 5.0  # seconds
+name_display_time = 2.0  # seconds
 
 def student_handler(address, *args):
     global student_name
@@ -119,7 +119,7 @@ def draw_main_screen(x_val, y_val, pot_val, btn_state):
 def show_name_on_oled(name):
     """Show 'now playing' splash, then return to normal."""
     oled.fill(0)
-    oled.text("now playing:", 0, 0, 1)
+    oled.text("Patch:", 0, 0, 1)
     oled.text(name[:20], 0, 16, 1)  # 20 chars is safe horizontally
     oled.show()
     time.sleep(name_display_time)
@@ -170,3 +170,4 @@ except KeyboardInterrupt:
     time.sleep(1)
     oled.fill(0)
     oled.show()
+
