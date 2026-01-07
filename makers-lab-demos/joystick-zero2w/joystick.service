@@ -1,0 +1,23 @@
+[Unit]
+Description=Joystick sensors to OSC + OLED
+After=network-online.target pd.service
+Wants=network-online.target pd.service
+
+[Service]
+Type=simple
+User=millerzero64
+WorkingDirectory=/home/millerzero64/Desktop
+ExecStart=/usr/bin/python3 /home/millerzero64/Desktop/sensorDataToOSC-04.py
+
+# Important: ensure OLED is cleared/powered down when this service stops
+ExecStopPost=/usr/bin/python3 /usr/local/bin/oled_off.py
+
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
