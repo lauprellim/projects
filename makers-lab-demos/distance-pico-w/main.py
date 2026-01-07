@@ -40,7 +40,7 @@ BOX_ID = 20              # stable identifier for this unit
 trigger = Pin(17, Pin.OUT)
 echo = Pin(16, Pin.IN)
 
-button = Pin(14, Pin.IN, Pin.PULL_UP)  # electrically: pressed->0, released->1
+button = Pin(15, Pin.IN, Pin.PULL_UP)  # electrically: pressed->0, released->1
 pot = ADC(26)
 
 # OLED (adjust pins/address here if needed)
