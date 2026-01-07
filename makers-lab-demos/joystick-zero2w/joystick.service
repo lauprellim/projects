@@ -7,7 +7,7 @@ Wants=network-online.target pd.service
 Type=simple
 User=millerzero64
 WorkingDirectory=/home/millerzero64/Desktop
-ExecStart=/usr/bin/python3 /home/millerzero64/Desktop/sensorDataToOSC-04.py
+ExecStart=/usr/bin/python3 /home/millerzero64/Desktop/sensorDataToOSC-05.py
 
 # Important: ensure OLED is cleared/powered down when this service stops
 ExecStopPost=/usr/bin/python3 /usr/local/bin/oled_off.py
