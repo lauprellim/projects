@@ -20,7 +20,7 @@
 #X msg 1213 355 connect localhost 9000;
 #X msg 279 290 button 1;
 #X msg 98 143 \; pd dsp 1;
-#X msg 1004 462 \; pd dsp 0;
+#X msg 1005 496 \; pd dsp 0;
 #X obj 586 770 print outgoing;
 #X msg 363 291 button 0;
 #X obj 710 445 select 1;
@@ -166,6 +166,7 @@
 #X text 1034 393 when OSC shutdown 1 message received \, ramp audio down to 0 gracefully and kill DSP.;
 #X obj 938 497 vs.line;
 #X msg 938 463 0 100;
+#X obj 1005 465 delay 120;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 2 0 40 0;
@@ -221,6 +222,7 @@
 #X connect 40 3 41 0;
 #X connect 41 0 42 0;
 #X connect 42 0 45 0;
-#X connect 42 1 21 0;
+#X connect 42 1 46 0;
 #X connect 44 0 28 1;
 #X connect 45 0 44 0;
+#X connect 46 0 21 0;
