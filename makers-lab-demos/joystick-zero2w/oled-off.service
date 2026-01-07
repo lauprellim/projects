@@ -1,0 +1,12 @@
+[Unit]
+Description=Turn off SSD1306 OLED at shutdown
+DefaultDependencies=no
+Before=shutdown.target reboot.target halt.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/bin/oled_off.py
+TimeoutStartSec=2
+
+[Install]
+WantedBy=shutdown.target reboot.target halt.target
