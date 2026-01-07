@@ -1,0 +1,15 @@
+[Unit]
+Description=Pure Data (nogui) for joystick project
+After=network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=millerzero64
+WorkingDirectory=/home/millerzero64/Desktop
+ExecStart=/usr/bin/pd -nogui -audiodev 2 /home/millerzero64/Desktop/playSensorData-06.pd
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
