@@ -1,17 +1,24 @@
 '''
-sensorDataToOSC-05.py  (SSD1306 version, hold-to-shutdown + graceful cleanup + SIGTERM)
+sensorDataToOSC-05.py  (SSD1306 version, edge-only button, 3-line OLED, shutdown->PD mute)
 Raspberry Pi Zero 2 W
 ---------------------------------
 - Reads joystick X/Y (MCP3008 CH0/CH1)
 - Reads 10 k pot (MCP3008 CH2)
 - Reads joystick button on GPIO 5 (active-low, debounced)
 - Sends normalized data via OSC → Pure Data (port 8000)
-- Receives performer name via OSC ← Pure Data (/student on port 9000)
-- Displays live sensor data or performer name on a 128x32 SSD1306 OLED (I2C)
-- If user holds joystick button for HOLD_TO_SHUTDOWN seconds, requests system shutdown
-- Uses sudo -n for shutdown (works under systemd User=... units)
+    - /joystick/x  (float 0.0–1.0)
+    - /joystick/y  (float 0.0–1.0)
+    - /pot         (float 0.0–1.0)
+    - /button      (int 0/1)  SENT ONLY ON EDGE CHANGES
+    - /shutdown    (int 1)    sent right before system shutdown
+- Receives patch/performer name via OSC ← Pure Data (/student on port 9000)
+- OLED (128x32) layout:
+    Line 1: patch name
+    Line 2: joystick x/y
+    Line 3: pot + button
+- Hold joystick button for HOLD_TO_SHUTDOWN seconds to shutdown (uses sudo -n)
 - Handles SIGTERM/SIGINT for clean systemd stop
-- Always performs cleanup on exit (stop OSC server, clear OLED, deinit pins)
+- Cleanup on exit (stop OSC server, clear OLED, deinit pins)
 '''
 
 import time
@@ -81,7 +88,6 @@ def read_button():
 # ------------------------
 # I2C + SSD1306 OLED (128x32)
 # ------------------------
-# Typical SSD1306 I2C address is 0x3C. Adjust if your board uses 0x3D.
 i2c = busio.I2C(board.SCL, board.SDA)
 oled_width = 128
 oled_height = 32
@@ -100,19 +106,18 @@ PD_PORT = 8000
 osc = SimpleUDPClient(PD_IP, PD_PORT)
 
 # ------------------------
-# OSC ← Pure Data
+# OSC ← Pure Data (patch name)
 # ------------------------
 LISTEN_PORT = 9000
-student_name = None
+current_patch_name = "Patch: (none)"
 name_lock = threading.Lock()
-name_display_time = 2.0  # seconds
 
 def student_handler(address, *args):
-    global student_name
+    global current_patch_name
     if args:
         with name_lock:
-            student_name = str(args[0])
-        print("received name: %s" % student_name)
+            current_patch_name = str(args[0])
+        print("received name: %s" % current_patch_name)
 
 disp = dispatcher.Dispatcher()
 disp.map("/student", student_handler)
@@ -127,26 +132,22 @@ print("listening for /student on UDP port %d" % LISTEN_PORT)
 def norm(val):  # 0–65535 → 0.0–1.0
     return round(val / 65535.0, 4)
 
-def draw_main_screen(x_val, y_val, pot_val, btn_state):
-    """Draw the normal 'live data' screen."""
+def draw_main_screen(patch_name, x_val, y_val, pot_val, btn_state):
     oled.fill(0)
-    oled.text("x:%4.2f" % x_val, 0, 0, 1)
-    oled.text("y:%4.2f" % y_val, 64, 0, 1)
-    oled.text("p:%4.2f" % pot_val, 0, 16, 1)
-    oled.text("b:%d" % btn_state, 64, 16, 1)
+    oled.text(patch_name[:20], 0, 0, 1)
+    oled.text("x:%4.2f y:%4.2f" % (x_val, y_val), 0, 8, 1)
+    oled.text("p:%4.2f b:%d" % (pot_val, btn_state), 0, 16, 1)
     oled.show()
-
-def show_name_on_oled(name):
-    """Show 'Patch' splash, then return to normal."""
-    oled.fill(0)
-    oled.text("Patch:", 0, 0, 1)
-    oled.text(name[:20], 0, 16, 1)  # 20 chars is safe horizontally
-    oled.show()
-    time.sleep(name_display_time)
 
 def request_shutdown():
-    # Under systemd this runs as User=millerzero64, so use sudo -n.
-    # This must succeed without a password prompt.
+    # Tell PD to mute immediately (your patch routes "shutdown 1")
+    try:
+        osc.send_message("/shutdown", 1)
+        time.sleep(0.05)
+    except Exception:
+        pass
+
+    # Run shutdown with sudo (non-interactive). Must succeed without password prompt.
     result = subprocess.run(
         ["/usr/bin/sudo", "-n", "/sbin/shutdown", "-h", "now"],
         capture_output=True,
@@ -155,7 +156,6 @@ def request_shutdown():
     )
 
     if result.returncode != 0:
-        # Show a short error on OLED so you can diagnose without logging in
         try:
             oled.fill(0)
             oled.text("shutdown failed", 0, 0, 1)
@@ -168,21 +168,18 @@ def request_shutdown():
         time.sleep(2.0)
 
 def cleanup():
-    # Stop OSC server first so callbacks stop firing
     try:
         server.shutdown()
         server.server_close()
     except Exception:
         pass
 
-    # Clear display (oled_off.py will power it off when service stops)
     try:
         oled.fill(0)
         oled.show()
     except Exception:
         pass
 
-    # Deinit pins
     try:
         button_pin.deinit()
     except Exception:
@@ -200,16 +197,17 @@ HOLD_TO_SHUTDOWN = 4.0  # seconds
 press_start_time = None
 shutdown_armed = False
 
-try:
-    name_timer = 0.0
+# Only send /button on edge changes
+last_sent_btn_state = None
 
+try:
     while running:
         # --- read analog values ---
         x_val = norm(chan_x.value)
         y_val = norm(chan_y.value)
         pot_val = norm(chan_pot.value)
 
-        # --- read button (debounced) ---
+        # --- read button (debounced edges) ---
         btn_event = read_button()
         btn_state = 1 if last_button_state else 0
 
@@ -217,12 +215,9 @@ try:
         now = time.monotonic()
 
         if btn_event is True:
-            # transition: released -> pressed
             press_start_time = now
             shutdown_armed = True
-
         elif btn_event is False:
-            # transition: pressed -> released
             press_start_time = None
             shutdown_armed = False
 
@@ -231,33 +226,30 @@ try:
                 oled.fill(0)
                 oled.text("Shutting down...", 0, 0, 1)
                 oled.show()
-                time.sleep(0.5)
+                time.sleep(0.2)
 
                 request_shutdown()
-
-                # Exit the loop; systemd will stop the unit and run oled_off.py
                 running = False
                 continue
 
-        # --- send OSC to PD ---
+        # --- send OSC to PD (continuous) ---
         osc.send_message("/joystick/x", x_val)
         osc.send_message("/joystick/y", y_val)
         osc.send_message("/pot", pot_val)
-        osc.send_message("/button", btn_state)
 
-        # --- check for new performer name ---
+        # --- send /button only on changes (edges) ---
+        if btn_event is not None:
+            send_val = 1 if btn_event else 0
+            if send_val != last_sent_btn_state:
+                osc.send_message("/button", send_val)
+                last_sent_btn_state = send_val
+
+        # --- update OLED (always) ---
         with name_lock:
-            current_name = student_name
-            student_name = None
+            patch_name = current_patch_name
+        draw_main_screen(patch_name, x_val, y_val, pot_val, btn_state)
 
-        if current_name:
-            show_name_on_oled(current_name)
-            name_timer = time.monotonic() + name_display_time
-
-        # --- update OLED only when name screen not active ---
-        if time.monotonic() > name_timer:
-            draw_main_screen(x_val, y_val, pot_val, btn_state)
-
+        # optional debug print
         print("x:%.3f y:%.3f p:%.3f b:%d" % (x_val, y_val, pot_val, btn_state))
         time.sleep(0.1)
 
