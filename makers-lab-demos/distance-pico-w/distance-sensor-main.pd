@@ -1,4 +1,4 @@
-#N canvas 316 55 892 800 12;
+#N canvas 220 26 892 800 12;
 #X msg 140 165 listen 9000;
 #X obj 141 192 netreceive -u -b;
 #X obj 141 124 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
@@ -54,7 +54,7 @@
 #X text 214 122 sound file to play;
 #X text 138 10 Abdul's patch loops a short sound file at a variable rate.;
 #X floatatom 360 197 5 0 0 0 - - - 0;
-#X obj 24 145 vs.splayer~ /Users/paulmiller/Desktop/bells.aif;
+#X obj 24 145 vs.splayer~ /Users/paulmiller/Desktop/schools/bells.aif;
 #X connect 0 0 10 0;
 #X connect 1 0 0 0;
 #X connect 2 0 10 0;
@@ -74,9 +74,10 @@
 #X text 168 407 distance in cm:;
 #X text 175 609 global gain output;
 #X text 277 281 connect this to view OSC messages;
-#X text 23 7 distance-sensor.main.pd | Paul V. Miller \, October 2025 | Duquesne University This patch listens for OSC messages over UDP on a local WiFi network \, and routes them to the correct student subpatch. Each transmitter sends a unique boxID. Multiple devices can be used simultaneously in an ensemble performance. We use objects in the virtual sound library which can be found at: https://virtual-sound.com/pure-data-electronic-music-and-sound-design-volume-1-support/ A Python script on a Raspberry Pi Pico W running Micropython interfaces with the hardware \, formats the OSC message \, and sends it out. This can be downloaded from my GitHub site., f 118;
 #X text 27 122 bang to start:;
-#X obj 427 361 vs.scale 0.19 1 1 0;
+#X obj 427 361 vs.scale 0.19 1 0 1;
+#X obj 428 392 clip 0 1;
+#X text 23 7 distance-sensor.main.pd | Paul V. Miller \, October 2025 - February 2026 | Duquesne University This patch listens for OSC messages over UDP on a local WiFi network \, and routes them to the correct student subpatch. Each transmitter sends a unique boxID. Multiple devices can be used simultaneously in an ensemble performance. We use objects in the virtual sound library which can be found at: https://virtual-sound.com/pure-data-electronic-music-and-sound-design-volume-1-support/ A Python script on a Raspberry Pi Pico W running Micropython interfaces with the hardware \, formats the OSC message \, and sends it out. This can be downloaded from my GitHub site., f 118;
 #X connect 0 0 1 0;
 #X connect 1 0 3 0;
 #X connect 2 0 0 0;
@@ -90,7 +91,7 @@
 #X connect 11 0 10 0;
 #X connect 12 0 13 0;
 #X connect 12 1 23 0;
-#X connect 12 2 39 0;
+#X connect 12 2 38 0;
 #X connect 12 3 11 0;
 #X connect 14 0 25 0;
 #X connect 14 0 17 0;
@@ -113,4 +114,5 @@
 #X connect 30 0 28 0;
 #X connect 31 0 28 0;
 #X connect 32 0 28 0;
+#X connect 38 0 39 0;
 #X connect 39 0 15 0;
