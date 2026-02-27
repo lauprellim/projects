@@ -1,26 +1,23 @@
 """
-Micropython program for Raspberry Pi Pico W
-  Reads distance from HC-SR04
-  Sends distance (cm), pot value, button press, and device ID over UDP to Pd
-  The data is sent as OSC
-  Pd handles all mode switching logic
+main.py
 
-OLED (128x32 I2C, SSD1306 / Adafruit #4440):
-  Line 0: ID:<boxID> WiFi:<OK/down>
-  Line 1: (blank)
-  Line 2: <distance> cm
-  Line 3: B:<0/1> V:<0.00>
+Pico W / Pico 2W application:
+  - Reads distance from HC-SR04
+  - Sends distance (cm), pot value, button press, and device ID over UDP as OSC
+  - Updates SSD1306 OLED (128x32)
 
-Button semantics:
-  pressed  -> 1
-  released -> 0
-  (This semantic value is sent over OSC and displayed on OLED.)
+Robust boot behavior:
+  - Waits briefly at boot so the OLED is ready on battery power
+  - Retries OLED init
+  - Logs boot progress and exceptions to boot-log.txt
+  - Safe mode: hold button at boot to skip the main application
 """
 
 import network
 import socket
 import struct
 import time
+import machine
 from machine import Pin, ADC, I2C
 import ssd1306
 
@@ -29,29 +26,64 @@ import ssd1306
 # ----------------------------
 
 SSID = "NETGEAR75"
-PASSWORD = "modernmoon901"
+PASSWORD = "*********"
 
-UDP_IP = "192.168.1.6"   # IP address of computer running Pure Data
-UDP_PORT = 9000          # UDP port PD is listening on
+UDP_IP = "192.168.1.2"
+UDP_PORT = 9000
 
-BOX_ID = 20              # stable identifier for this unit
+BOX_ID = 30
 
-# Pins (as in your original script)
-trigger = Pin(17, Pin.OUT)
-echo = Pin(16, Pin.IN)
+# Pins
+TRIG_PIN = 17
+ECHO_PIN = 16
+BUTTON_PIN = 15
+POT_ADC = 26
 
-button = Pin(15, Pin.IN, Pin.PULL_UP)  # electrically: pressed->0, released->1
-pot = ADC(26)
-
-# OLED (adjust pins/address here if needed)
+# OLED
 OLED_WIDTH = 128
 OLED_HEIGHT = 32
 OLED_ADDR = 0x3C
-i2c = I2C(0, sda=Pin(0), scl=Pin(1), freq=400000)
-oled = ssd1306.SSD1306_I2C(OLED_WIDTH, OLED_HEIGHT, i2c, addr=OLED_ADDR)
+OLED_I2C_ID = 0
+OLED_SDA = 0
+OLED_SCL = 1
+OLED_FREQ = 400000
 
 # Debounce
 debounce_delay_s = 0.30
+
+# ----------------------------
+# Logging
+# ----------------------------
+
+def log(msg):
+    try:
+        with open('boot-log.txt', 'a') as f:
+            f.write('%d reset_cause=%d %s\n' % (time.time(), machine.reset_cause(), msg))
+    except Exception:
+        pass
+
+# ----------------------------
+# Boot pacing + safe mode
+# ----------------------------
+
+button = Pin(BUTTON_PIN, Pin.IN, Pin.PULL_UP)
+
+time.sleep(1.5)  # critical: give OLED time to power up on battery boot
+log('boot: entered main.py')
+
+if button.value() == 0:
+    log('boot: SAFE MODE (button held), skipping app')
+    while True:
+        time.sleep(1)
+
+# ----------------------------
+# Hardware setup (non-OLED)
+# ----------------------------
+
+trigger = Pin(TRIG_PIN, Pin.OUT)
+echo = Pin(ECHO_PIN, Pin.IN)
+pot = ADC(POT_ADC)
+
 last_pressed = 0
 last_button_time_ms = 0
 
@@ -77,20 +109,16 @@ def build_osc_message(address, types, args):
     return msg
 
 # ----------------------------
-# Hardware read functions
+# Read functions
 # ----------------------------
 
 def read_distance(timeout_us=30000):
-    """
-    Returns distance in cm (float), or None on timeout.
-    """
     trigger.low()
     time.sleep_us(2)
     trigger.high()
     time.sleep_us(10)
     trigger.low()
 
-    # wait for echo to go high
     t0 = time.ticks_us()
     while echo.value() == 0:
         if time.ticks_diff(time.ticks_us(), t0) > timeout_us:
@@ -98,15 +126,12 @@ def read_distance(timeout_us=30000):
 
     start = time.ticks_us()
 
-    # wait for echo to go low
     while echo.value() == 1:
         if time.ticks_diff(time.ticks_us(), start) > timeout_us:
             return None
 
     end = time.ticks_us()
     duration = time.ticks_diff(end, start)
-
-    # convert to cm: cm = (us/2)/29.1 (approx)
     return (duration / 2.0) / 29.1
 
 def read_volume():
@@ -114,34 +139,44 @@ def read_volume():
     return 1.0 - (raw / 65535.0)
 
 def read_pressed_semantic():
-    """
-    Returns semantic pressed state:
-      physically pressed   -> 1
-      physically released  -> 0
-    """
     return 1 if button.value() == 0 else 0
 
 # ----------------------------
-# OLED update
+# OLED init with retry
 # ----------------------------
+
+def init_oled(retries=5, delay_s=0.4):
+    last_exc = None
+    for k in range(retries):
+        try:
+            i2c = I2C(OLED_I2C_ID, sda=Pin(OLED_SDA), scl=Pin(OLED_SCL), freq=OLED_FREQ)
+            addrs = i2c.scan()
+            log('oled: i2c scan attempt %d: %s' % (k + 1, str(addrs)))
+
+            oled = ssd1306.SSD1306_I2C(OLED_WIDTH, OLED_HEIGHT, i2c, addr=OLED_ADDR)
+            oled.fill(0)
+            oled.text('BOOTING...', 0, 0)
+            oled.text('ID:%d' % BOX_ID, 0, 8)
+            oled.show()
+            log('oled: init OK')
+            return oled
+        except Exception as e:
+            last_exc = e
+            log('oled: init failed attempt %d: %r' % (k + 1, e))
+            time.sleep(delay_s)
+
+    raise last_exc
+
+oled = init_oled()
 
 def update_oled(dist_cm, vol, pressed, wifi_ok):
     wf_txt = "OK" if wifi_ok else "down"
-
-    # Line 0: ID + WiFi
-    # Keep it short for 16-char width; remove extra spaces if needed.
     line0 = "ID:%d WiFi:%s" % (BOX_ID, wf_txt)
-
-    # Line 1: blank
     line1 = ""
-
-    # Line 2: distance only
     if dist_cm is None:
         line2 = "---.- cm"
     else:
         line2 = "%.1f cm" % dist_cm
-
-    # Line 3: button + volume
     line3 = "B:%d V:%.2f" % (pressed, vol)
 
     oled.fill(0)
@@ -155,11 +190,11 @@ def update_oled(dist_cm, vol, pressed, wifi_ok):
 # Networking setup
 # ----------------------------
 
+log('wifi: starting')
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(SSID, PASSWORD)
 
-# show OLED while connecting (up to a timeout)
 wifi_timeout_s = 15
 t_start_ms = time.ticks_ms()
 
@@ -168,15 +203,18 @@ while (not wlan.isconnected()) and (time.ticks_diff(time.ticks_ms(), t_start_ms)
     time.sleep(0.2)
 
 if wlan.isconnected():
-    print("Connected:", wlan.ifconfig())
+    log('wifi: connected %s' % (str(wlan.ifconfig()),))
 else:
-    print("WiFi not connected (continuing anyway).")
+    log('wifi: not connected (continuing)')
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+log('udp: socket created')
 
 # ----------------------------
 # Main loop
 # ----------------------------
+
+log('loop: enter')
 
 while True:
     dist = read_distance()
@@ -184,27 +222,22 @@ while True:
     pressed = read_pressed_semantic()
     wifi_ok = wlan.isconnected()
 
-    # Send device identifier every loop
     msg_id = build_osc_message("/boxID", "i", [BOX_ID])
     sock.sendto(msg_id, (UDP_IP, UDP_PORT))
 
-    # Send distance + pot every loop
     dist_to_send = dist if (dist is not None) else 0.0
     msg_dist = build_osc_message("/distanceCM", "f", [dist_to_send])
     msg_vol = build_osc_message("/pot", "f", [vol])
     sock.sendto(msg_dist, (UDP_IP, UDP_PORT))
     sock.sendto(msg_vol, (UDP_IP, UDP_PORT))
 
-    # Send button changes (debounced), using semantic pressed bit
     now_ms = time.ticks_ms()
+    last_pressed, last_button_time_ms  # MicroPython allows this at module scope
     if (pressed != last_pressed) and (time.ticks_diff(now_ms, last_button_time_ms) > int(debounce_delay_s * 1000)):
         last_button_time_ms = now_ms
         msg_btn = build_osc_message("/button", "i", [pressed])
         sock.sendto(msg_btn, (UDP_IP, UDP_PORT))
         last_pressed = pressed
 
-    # Update OLED every loop
     update_oled(dist, vol, pressed, wifi_ok)
-
     time.sleep(0.1)
-
