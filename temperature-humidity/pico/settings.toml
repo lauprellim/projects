@@ -1,2 +1,24 @@
+# ==========================================
+# Pico W Climate Sensor Configuration
+# Media Maker's Lab
+# ==========================================
+
+# WiFi network
+
 CIRCUITPY_WIFI_SSID = "DuqNet-IoT"
 CIRCUITPY_WIFI_PASSWORD = ""
+
+# Device identifier
+# Change only this value for each sensor node
+
+ID_LOCATIONS = "3"
+
+# Shared API token used by server script
+
+API_TOKEN = "duQuesne1878!"
+
+# Enable console debugging:
+# 0 = silent autonomous operation
+# 1 = print debugging messages
+
+DEBUG = "1"
