@@ -48,8 +48,8 @@ OLED_SDA = 0
 OLED_SCL = 1
 OLED_FREQ = 400000
 
-# Debounce
-debounce_delay_s = 0.30
+# Debounce delay at 50ms
+debounce_delay_s = 0.05
 
 # ----------------------------
 # Logging
