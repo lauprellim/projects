@@ -232,7 +232,7 @@ while True:
     sock.sendto(msg_vol, (UDP_IP, UDP_PORT))
 
     now_ms = time.ticks_ms()
-    last_pressed, last_button_time_ms  # MicroPython allows this at module scope
+    # last_pressed, last_button_time_ms  # MicroPython allows this at module scope
     if (pressed != last_pressed) and (time.ticks_diff(now_ms, last_button_time_ms) > int(debounce_delay_s * 1000)):
         last_button_time_ms = now_ms
         msg_btn = build_osc_message("/button", "i", [pressed])
